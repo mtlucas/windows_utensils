@@ -1,0 +1,26 @@
+{
+  "name": "mtlucas-windows_utensils",
+  "version": "0.0.1",
+  "author": "mtlucas",
+  "summary": "This module allows you to manage windows using carbon.dll.",
+  "license": "Apache License, Version 2.0",
+  "source": "https://github.com/mtlucas/windows_utensils.git",
+  "project_page": "https://github.com/mtlucas/windows_utensils",
+  "issues_url": "https://github.com/mtlucas/windows_utensils/issues",
+  "description": "This module allows you to manage windows using carbon.dll.",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Windows"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/powershell",
+      "version_requirement": ">=1.0.2"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.2.1"
+    }
+  ]
+}

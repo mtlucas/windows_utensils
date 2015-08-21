@@ -1,0 +1,14 @@
+{
+  "README.md": "e898fc505e84199d550c528bb19d82b9",
+  "Rakefile": "20b80e526e351a74df2001f504e756d2",
+  "files/carbon.dll": "39caf69d5ffde7598acd6b8644080fe9",
+  "manifests/credentials.pp": "8eedf409046bb76b32b6f2688445376a",
+  "manifests/delayedstart.pp": "9adb0bd8c2886af055508794df88fc83",
+  "manifests/addusertogroup.pp": "d3961383aabc9099857bf47796db3a05",
+  "manifests/setpriv.pp": "cb73f4a056fb552b6c0136cd9a2b7bcd",
+  "manifests/init.pp": "10df971753a4e7deaf5704c12d7c7253",
+  "metadata.json": "0b394f35cb0fb927eea2bcc6013a38bd",
+  "spec/classes/init_spec.rb": "c5b4d1b17cbd79cc0e0b2df849552034",
+  "spec/spec_helper.rb": "a55d1e6483344f8ec6963fcb2c220372",
+  "tests/init.pp": "f67a15b354ef821190f077eec4e85ffa"
+}
