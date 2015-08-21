@@ -23,24 +23,22 @@
 define windows_utensils::setpriv(
   $identity    = '',
   $privilege    = '',
-  $utensilsdll   = "C:\\windows\\carbon.dll",
   )
 {
+  require windows_utensils::carbon_file
+
+  $utensilsdll = $windows_utensils::carbon_file::utensilsdll
+
   if(empty($identity)){
     fail('Identity is mandatory')
   }
   if(empty($privilege)){
     fail('Privilege is mandatory')
   }
-  file{"${utensilsdll}":
-    source => "puppet:///modules/windows_utensils/carbon.dll",
-    source_permissions => ignore,
-  }
   exec{"Set Privileges - $privilege":
-    command  => "\$identity = '${identity}';\$privilege = '${privilege}';[Reflection.Assembly]::UnSafeLoadFrom(\"${utensilsdll}\");[utensils.LSA]::GrantPrivileges(\$identity, \$privilege);",
+    command  => "\$identity = '${identity}';\$privilege = '${privilege}';[Reflection.Assembly]::UnSafeLoadFrom(\"${utensilsdll}\");[Carbon.LSA]::GrantPrivileges(\$identity, \$privilege);",
     provider => "powershell",
     timeout  => 30,
   }
-
   File["${utensilsdll}"] -> Exec["Set Privileges - $privilege"]
 }

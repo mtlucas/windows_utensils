@@ -20,20 +20,12 @@
 #
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
-define windows_utensils::addusertogroup(
-  $username    = '',
-  $group       = '',
-  )
-{
-  if(empty($username)){
-    fail('Username is mandatory')
-  }
-  if(empty($group)){
-    fail('Group is mandatory')
-  }
-  exec{"Add User to LocalGroup - $group":
-    command  => "net.exe localgroup $group $username /add",
-    timeout  => 30,
-	unless   => "cmd.exe /c net.exe localgroup $group | find \"$username\"",
+class windows_utensils::carbon_file {
+
+  $utensilsdll   = "C:\\windows\\carbon.dll"
+  
+  file{"${utensilsdll}":
+    source => "puppet:///modules/windows_utensils/carbon.dll",
+    source_permissions => ignore,
   }
 }
