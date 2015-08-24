@@ -8,7 +8,7 @@
 #
 # === Examples
 #
-#  windows_utensils::setpriv{'puppet':
+#  windows_utensils::policy_set_privilege{'puppet':
 #    identity    = "DOMAIN\User",
 #    privilege    = "SeServiceLogonRight",
 #  }
@@ -20,7 +20,7 @@
 #
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
-define windows_utensils::setpriv(
+define windows_utensils::policy_set_privilege(
   $identity    = '',
   $privilege    = '',
   )

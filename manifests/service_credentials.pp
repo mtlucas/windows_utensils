@@ -8,7 +8,7 @@
 #
 # === Examples
 #
-#  windows_utensils::credentials{'puppet':
+#  windows_utensils::service_credentials{'puppet':
 #    username    = "DOMAIN\User",
 #    password    = "P@ssw0rd",
 #    servicename = "puppet",
@@ -21,7 +21,7 @@
 #
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
-define windows_utensils::credentials(
+define windows_utensils::service_credentials(
   $username    = '',
   $password    = '',
   $servicename = '',

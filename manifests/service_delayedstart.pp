@@ -8,7 +8,7 @@
 #
 # === Examples
 #
-#  windows_utensils::delayedstart{'puppet':
+#  windows_utensils::service_delayedstart{'puppet':
 #    delayed     = true,
 #    servicename = "puppet",
 #  }
@@ -20,7 +20,7 @@
 #
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
-define windows_utensils::delayedstart(
+define windows_utensils::service_delayedstart(
   $delayed     = true,
   $servicename = '',
 ){

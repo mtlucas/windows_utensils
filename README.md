@@ -18,10 +18,10 @@ Module allow us to manage complex windows settings using command line and Powers
 
 Manage complex windows settings using command line tools and powershell.  Included resources:
 
-###windows_utensils::credentials    -- Change Windows service credentials and adding SeServiceLogonRight local policy rights
-###windows_utensils::delayedstart   -- Change Windows service startup type to Automatic (Delayed)
-###windows_utensils::setpriv        -- Add user to SeServiceLogonRight local policy rights
-###windows_utensils::addusertogroup -- Adds a user to a local group
+ - windows_utensils::credentials    -- Change Windows service credentials and adding SeServiceLogonRight local policy rights
+ - windows_utensils::delayedstart   -- Change Windows service startup type to Automatic (Delayed)
+ - windows_utensils::setpriv        -- Add user to SeServiceLogonRight local policy rights
+ - windows_utensils::addusertogroup -- Adds a user to a local group
 
 Delayed resource can't be applied without a server restart.
 
@@ -41,45 +41,116 @@ Depends on the following modules:
 
 ## Usage
 
-Resource: windows_utensils::delayedstart
+Resource: windows_utensils::service_create
 ```
-	windows_utensils::delayedstart{'puppetdelayed':
+	windows_utensils::service_create{'puppetdelayed':
+	  servicename      => "puppet",
+	  service_exe_path => "C:\Program Files\Service\Service.exe",
+	  service_startup  => "auto",
+	}
+```
+Parameters
+```
+	$servicename       # Short name of Windows service
+	$service_exe_path  # Fully qualified path to service executable
+	$service_startup   # Service startup value: <boot|system|auto|demand|disabled|delayed-auto>
+```
+
+
+Resource: windows_utensils::service_update
+```
+	windows_utensils::service_update{'puppetdelayed':
+	  servicename      => "puppet",
+	  service_exe_path => "C:\Program Files\Service\Service.exe",
+	  service_startup  => "auto",
+	}
+```
+Parameters
+```
+	$servicename       # Short name of Windows service
+	$service_exe_path  # Fully qualified path to service executable
+	$service_startup   # OPTIONAL Service startup value: <boot|system|auto|demand|disabled|delayed-auto>
+```
+
+
+Resource: windows_utensils::service_set_failure
+```
+	windows_utensils::service_set_failure { 'puppetfailure':
+	  servicename           => "puppet",
+	  failure_first_action  => 'restart',
+	  failure_second_action => 'restart',
+	  failure_last_action   => 'restart',
+	  failure_delay         => '60000',
+	}
+```
+Parameters
+```
+	$servicename           # Short name of Windows service
+	$failure_first_action  # OPTIONAL First action of failure detection <run|restart|reboot>
+	$failure_second_action # OPTIONAL Second action of failure detection <run|restart|reboot>
+	$failure_last_action   # OPTIONAL Third action of failure detection <run|restart|reboot>
+	$failure_delay         # OPTIONAL Delay time in milliseconds to perform failure action
+	
+```
+
+
+Resource: windows_utensils::service_delayedstart
+```
+	windows_utensils::service_delayedstart{'puppetdelayed':
 	  servicename => "puppet",
 	}
 ```
 Parameters
 ```
-	$delayed   # Default True for put delayed start on service, set to false to let to automatic start
+	$servicename # Short name of Windows service
+	$delayed     # OPTIONAL - Default True for put delayed start on service, set to false to let to automatic start
 ```
 
-Resource: windows_utensils:credentials
+
+Resource: windows_utensils:service_credentials
 ```
-	windows_utensils::credentials{'puppetcredentials':
+	windows_utensils::service_credentials{'puppetcredentials':
+	  servicename => "puppet",
 	  username    => "DOMAIN\\User",
 	  password    => "P@ssw0rd",
-	  servicename => "puppet",
 	}
 ```
 
 Parameters
 ```
-	$delayed   # Default False, set to true to set delayed start on servicename. (Restart needed)
+	$servicename # Short name of Windows service
+	$username    # Username to add to Windows service
+	$password    # Password (use eYaml and hiera please)
 ```
 
-Resource: windows_utensils:setpriv
+
+Resource: windows_utensils:policy_set_privilege
 ```
-	windows_utensils::setpriv{'puppetuserpriv':
+	windows_utensils::policy_set_privilege{'puppetuserpriv':
 	  identity    => "DOMAIN\\User",
 	  privilege   => "SeServiceLogonRight",
 	}
 ```
 
-Resource: windows_utensils:addusertogroup
+Parameters
 ```
-	windows_utensils::addusertogroup{'puppetadmin':
+	$identity    # Username to add to Logon As A Service User Right
+	$privilege   # Privilege from Microsoft documentation (ex. SeServiceLogonRight)
+```
+
+
+Resource: windows_utensils:localgroup_add_user
+```
+	windows_utensils::localgroup_add_user{'puppetadmin':
 	  username    => "DOMAIN\\User",
 	  group       => "Administrators",
 	}
+```
+
+Parameters
+```
+	$username   # Username to add to Windows Localgroup
+	$group      # Local Group to add user to
 ```
 
 

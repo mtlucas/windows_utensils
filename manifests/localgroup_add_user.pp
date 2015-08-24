@@ -8,8 +8,8 @@
 #
 # === Examples
 #
-#  windows_utensils::addusertogroup{'puppet':
-#    username = "DOMAIN\User",
+#  windows_utensils::localgroup_add_user{'puppet':
+#    username = "DOMAIN\\User",
 #    group    = "LocalGroup",
 #  }
 # === Authors
@@ -20,7 +20,7 @@
 #
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
-define windows_utensils::addusertogroup(
+define windows_utensils::localgroup_add_user(
   $username    = '',
   $group       = '',
   )
