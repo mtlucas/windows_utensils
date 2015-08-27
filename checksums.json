@@ -1,8 +1,7 @@
 {
-  "README.md": "9dae40534f6d763dde1c722b28b0a6b8",
+  "README.md": "741711723b3a80051c63137e816196c1",
   "Rakefile": "20b80e526e351a74df2001f504e756d2",
   "files/carbon.dll": "39caf69d5ffde7598acd6b8644080fe9",
-  "manifests/credentials.pp": "10597a431a1070fee9dd98f69172a3b4",
   "manifests/carbon_file.pp": "c4face0868611e8fd2979383cdabb0e7",
   "manifests/localgroup_add_user.pp": "94bb6d89f4be9d7cf63c6cdf5f09d72e",
   "manifests/policy_set_privilege.pp": "9ea7952cf4bd160000d2270a613e5a75",
@@ -11,6 +10,7 @@
   "manifests/service_set_failure.pp": "11be8067972afbae4b943b18c2660bd2",
   "manifests/service_credentials.pp": "8e30ef11b39f2f590b15f048afd455f2",
   "manifests/service_delayedstart.pp": "04ad3fe643d5033f8c3a784fd38c678e",
+  "manifests/service_description.pp": "a9491f05f3a88c1bdb919c57acc1d1ab",
   "manifests/init.pp": "10df971753a4e7deaf5704c12d7c7253",
   "metadata.json": "0b394f35cb0fb927eea2bcc6013a38bd",
   "spec/classes/init_spec.rb": "c5b4d1b17cbd79cc0e0b2df849552034",

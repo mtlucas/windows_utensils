@@ -18,18 +18,30 @@ Module allow us to manage complex windows settings using command line and Powers
 
 Manage complex windows settings using command line tools and powershell.  Included resources:
 
- - windows_utensils::credentials    -- Change Windows service credentials and adding SeServiceLogonRight local policy rights
- - windows_utensils::delayedstart   -- Change Windows service startup type to Automatic (Delayed)
- - windows_utensils::setpriv        -- Add user to SeServiceLogonRight local policy rights
- - windows_utensils::addusertogroup -- Adds a user to a local group
+ - windows_utensils::service_create       -- Create Windows service
+ - windows_utensils::service_update       -- Update Windows service startup type and executable path
+ - windows_utensils::service_set_failure  -- Set Windows service failure options
+ - windows_utensils::service_credentials  -- Change Windows service credentials also adding SeServiceLogonRight to local policy rights
+ - windows_utensils::service_delayedstart -- Change Windows service startup type to 'Automatic (Delayed)'
+ - windows_utensils::service_description  -- Change Windows service description
+ - windows_utensils::policy_set_privilege -- Add user to 'Logon as a Service' User right
+ - windows_utensils::localgroup_add_user  -- Adds a user to a local group (including Domain users)
 
-Delayed resource can't be applied without a server restart.
+Notes:  Delayed resource can't be applied without a server restart.
 
 ##Last Fix/Update
-V 0.0.1 :
- - Add carbon.dll assembly. Permit to give privilege : SeServiceLogonRight to the specify account (useful for managing server without DC features)
- - Remove starting service from credentials resource
+v 0.0.3 :
+ - Add service_description resource
 
+v 0.0.2 :
+ - Add service_create, service_update, service_set_failure, localgroup_add_user resources
+ - Change names of resources to be more friendly
+ 
+v 0.0.1 :
+ - Add carbon.dll assembly. Permit to give privilege : SeServiceLogonRight to the specify account (useful for managing server without DC features)
+ - Initial commit
+
+ 
 ## Setup
 
 ### Setup Requirements
@@ -43,7 +55,7 @@ Depends on the following modules:
 
 Resource: windows_utensils::service_create
 ```
-	windows_utensils::service_create{'puppetdelayed':
+	windows_utensils::service_create{'puppet':
 	  servicename      => "puppet",
 	  service_exe_path => "C:\Program Files\Service\Service.exe",
 	  service_startup  => "auto",
@@ -59,7 +71,7 @@ Parameters
 
 Resource: windows_utensils::service_update
 ```
-	windows_utensils::service_update{'puppetdelayed':
+	windows_utensils::service_update{'puppet':
 	  servicename      => "puppet",
 	  service_exe_path => "C:\Program Files\Service\Service.exe",
 	  service_startup  => "auto",
@@ -124,6 +136,21 @@ Parameters
 ```
 
 
+Resource: windows_utensils:service_description
+```
+	windows_utensils::service_description{'puppetdesc':
+	  servicename => "puppet",
+	  description => "This is a Windows service description",
+	}
+```
+
+Parameters
+```
+	$servicename # Short name of Windows service
+	$description # Windows service description using ASCII character
+```
+
+
 Resource: windows_utensils:policy_set_privilege
 ```
 	windows_utensils::policy_set_privilege{'puppetuserpriv':
@@ -135,7 +162,7 @@ Resource: windows_utensils:policy_set_privilege
 Parameters
 ```
 	$identity    # Username to add to Logon As A Service User Right
-	$privilege   # Privilege from Microsoft documentation (ex. SeServiceLogonRight)
+	$privilege   # Unique Privilege name from Microsoft documentation
 ```
 
 
@@ -158,6 +185,7 @@ Parameters
 
 Works only with windows.
 Tested on Windows Server 2012 R2
+Carbon.dll 1.9.0.0 is included in order to add user identities to user rights.
 
 
 License
