@@ -31,10 +31,10 @@ define windows_utensils::service_description(
   if(empty($service_desc)){
     fail('Service description is mandatory')
   }
-  $service_exists = "powershell get-service -name $servicename"
+  $service_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe get-service -name $servicename"
 
   exec{"Set Service description - $servicename":
-    command     => "sc description $servicename \"$service_desc\"",
+    command     => "C:\\Windows\\System32\\sc.exe description $servicename \"$service_desc\"",
     timeout     => 300,
     onlyif      => $service_exists,
   }

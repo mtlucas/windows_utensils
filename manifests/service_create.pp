@@ -36,10 +36,10 @@ define windows_utensils::service_create(
   if(empty($service_startup)){
     fail('Service startup type is optional, use <boot|system|auto|demand|disabled|delayed-auto> values')
   }
-  $service_exists = "powershell get-service -name $servicename"
+  $service_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe get-service -name $servicename"
   
   exec{"Create Service - $servicename":
-    command     => "sc create $servicename start= $service_startup binPath= \"$service_exe_path\"",
+    command     => "C:\\Windows\\System32\\sc.exe create $servicename start= $service_startup binPath= \"$service_exe_path\"",
     timeout     => 300,
     unless      => $service_exists,
   }

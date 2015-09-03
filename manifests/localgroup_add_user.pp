@@ -32,8 +32,8 @@ define windows_utensils::localgroup_add_user(
     fail('Group is mandatory')
   }
   exec{"Add User to LocalGroup - $group":
-    command  => "net.exe localgroup $group $username /add",
+    command  => "C:\\Windows\\System32\\net.exe localgroup $group $username /add",
     timeout  => 300,
-	unless   => "cmd.exe /c net.exe localgroup $group | find \"$username\"",
+	unless   => "C:\\Windows\\System32\\cmd.exe /c C:\\Windows\\System32\\net.exe localgroup $group | find \"$username\"",
   }
 }

@@ -46,10 +46,10 @@ define windows_utensils::service_set_failure(
   if(empty($failure_delay)){
     fail('Failure delay time is optional, in milliseconds')
   }
-  $service_exists = "powershell get-service -name $servicename"
+  $service_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe get-service -name $servicename"
 
   exec{"Change Failure settings - $servicename":
-    command     => "sc failure $servicename reset= 0 actions= $failure_first_action/$failure_delay/$failure_second_action/$failure_delay/$failure_last_action/$failure_delay",
+    command     => "C:\\Windows\\System32\\sc.exe failure $servicename reset= 0 actions= $failure_first_action/$failure_delay/$failure_second_action/$failure_delay/$failure_last_action/$failure_delay",
     timeout     => 300,
     onlyif      => $service_exists,
   }
