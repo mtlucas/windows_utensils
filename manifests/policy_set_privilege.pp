@@ -38,7 +38,7 @@ define windows_utensils::policy_set_privilege(
   exec{"Set Privileges - $privilege":
     command  => "\$identity = '${identity}';\$privilege = '${privilege}';[Reflection.Assembly]::UnSafeLoadFrom(\"${utensilsdll}\");[Carbon.LSA]::GrantPrivileges(\$identity, \$privilege);",
     provider => "powershell",
-    timeout  => 30,
+    timeout  => 300,
   }
   File["${utensilsdll}"] -> Exec["Set Privileges - $privilege"]
 }

@@ -35,7 +35,7 @@ define windows_utensils::service_description(
 
   exec{"Set Service description - $servicename":
     command     => "sc description $servicename \"$service_desc\"",
-    timeout     => 30,
+    timeout     => 300,
     onlyif      => $service_exists,
   }
 }

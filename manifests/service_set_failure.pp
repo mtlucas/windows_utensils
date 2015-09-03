@@ -50,7 +50,7 @@ define windows_utensils::service_set_failure(
 
   exec{"Change Failure settings - $servicename":
     command     => "sc failure $servicename reset= 0 actions= $failure_first_action/$failure_delay/$failure_second_action/$failure_delay/$failure_last_action/$failure_delay",
-    timeout     => 30,
+    timeout     => 300,
     onlyif      => $service_exists,
   }
 }

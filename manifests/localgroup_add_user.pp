@@ -33,7 +33,7 @@ define windows_utensils::localgroup_add_user(
   }
   exec{"Add User to LocalGroup - $group":
     command  => "net.exe localgroup $group $username /add",
-    timeout  => 30,
+    timeout  => 300,
 	unless   => "cmd.exe /c net.exe localgroup $group | find \"$username\"",
   }
 }

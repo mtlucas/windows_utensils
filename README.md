@@ -12,7 +12,12 @@
 
 ## Overview
 
-Module allow us to manage complex windows settings using command line and Powershell executions.
+Module allow us to manage complex windows settings using command line and Powershell executions.  Most of these modules are idempotent, 
+however some will execute powershell that will execute puppet execution.
+
+ - Windows Services
+ - Local Policy settings
+ - Local User groups
 
 ## Module Description
 
@@ -139,8 +144,8 @@ Parameters
 Resource: windows_utensils:service_description
 ```
 	windows_utensils::service_description{'puppetdesc':
-	  servicename => "puppet",
-	  description => "This is a Windows service description",
+	  servicename  => "puppet",
+	  service_desc => "This is a Windows service description",
 	}
 ```
 
@@ -183,9 +188,9 @@ Parameters
 
 ## Limitations
 
-Works only with windows.
-Tested on Windows Server 2012 R2
-Carbon.dll 1.9.0.0 is included in order to add user identities to user rights.
+Works only with windows.  
+Tested on Windows Server 2012 R2.  
+Carbon.dll v1.9.0.0 is included in order to add user identities to user rights.
 
 
 License
