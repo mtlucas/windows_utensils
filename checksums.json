@@ -3,7 +3,7 @@
   "Rakefile": "20b80e526e351a74df2001f504e756d2",
   "files/carbon.dll": "39caf69d5ffde7598acd6b8644080fe9",
   "manifests/carbon_file.pp": "c4face0868611e8fd2979383cdabb0e7",
-  "manifests/localgroup_add_user.pp": "b5bdd805bb94edf54489ec4b0521cc45",
+  "manifests/localgroup_add_user.pp": "19090fb8e0b9d2bb85c7f3cdd803954d",
   "manifests/policy_set_privilege.pp": "bce41c9f27658cb9b8619476c1c9b4e8",
   "manifests/service_create.pp": "8bf180cec5cb0bf71b666c45030fde99",
   "manifests/service_update.pp": "0c65509a5eb01b246f6ac12f3d5744a5",
