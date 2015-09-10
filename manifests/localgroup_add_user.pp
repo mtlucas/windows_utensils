@@ -9,8 +9,9 @@
 # === Examples
 #
 #  windows_utensils::localgroup_add_user{'puppet':
-#    username = "DOMAIN\\User",
-#    group    = "LocalGroup",
+#    username    => "DOMAIN\\User",
+#    group       => "LocalGroup",
+#    description => "Unique description",
 #  }
 # === Authors
 #
@@ -23,6 +24,7 @@
 define windows_utensils::localgroup_add_user(
   $username    = '',
   $group       = '',
+  $description = '',
   )
 {
   if(empty($username)){
@@ -31,8 +33,11 @@ define windows_utensils::localgroup_add_user(
   if(empty($group)){
     fail('Group is mandatory')
   }
+  if(empty($description)){
+    fail('Description is mandatory in order to make this unique')
+  }
   
-  exec{"Add User to LocalGroup - $group":
+  exec{"Add User to LocalGroup - $description":
     command  => "C:\\Windows\\System32\\net.exe localgroup $group $username /add",
     timeout  => 300,
 	unless   => "C:\\Windows\\system32\\cmd.exe /C net.exe localgroup $group | find /I \"$username\"",

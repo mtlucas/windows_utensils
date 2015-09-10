@@ -9,8 +9,8 @@
 # === Examples
 #
 #  windows_utensils::policy_set_privilege{'puppet':
-#    identity    = "DOMAIN\User",
-#    privilege    = "SeServiceLogonRight",
+#    identity    => "DOMAIN\User",
+#    privilege   => "SeServiceLogonRight",
 #  }
 # === Authors
 #
@@ -21,8 +21,9 @@
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
 define windows_utensils::policy_set_privilege(
-  $identity    = '',
+  $identity     = '',
   $privilege    = '',
+  $description  = '',
   )
 {
   require windows_utensils::carbon_file
@@ -35,10 +36,14 @@ define windows_utensils::policy_set_privilege(
   if(empty($privilege)){
     fail('Privilege is mandatory')
   }
-  exec{"Set Privileges - $privilege":
+  if(empty($description)){
+    fail('Description is mandatory in order to make unique')
+  }
+
+  exec{"Set Privileges - $description":
     command  => "\$identity = '${identity}';\$privilege = '${privilege}';[Reflection.Assembly]::UnSafeLoadFrom(\"${utensilsdll}\");[Carbon.LSA]::GrantPrivileges(\$identity, \$privilege);",
     provider => "powershell",
     timeout  => 300,
   }
-  File["${utensilsdll}"] -> Exec["Set Privileges - $privilege"]
+  File["${utensilsdll}"] -> Exec["Set Privileges - $description"]
 }

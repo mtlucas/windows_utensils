@@ -9,8 +9,8 @@
 # === Examples
 #
 #  windows_utensils::service_delayedstart{'puppet':
-#    delayed     = true,
-#    servicename = "puppet",
+#    delayed     => true,
+#    servicename => "puppet",
 #  }
 # === Authors
 #

@@ -9,8 +9,8 @@
 # === Examples
 #
 #  windows_utensils::service_description{'puppet':
-#    servicename = "puppet",
-#    service_desc = "Windows service description shown in Services MMC",
+#    servicename  => "puppet",
+#    service_desc => "Windows service description shown in Services MMC",
 #  }
 # === Authors
 #

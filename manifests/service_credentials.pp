@@ -9,9 +9,9 @@
 # === Examples
 #
 #  windows_utensils::service_credentials{'puppet':
-#    username    = "DOMAIN\User",
-#    password    = "P@ssw0rd",
-#    servicename = "puppet",
+#    username    => "DOMAIN\User",
+#    password    => "P@ssw0rd",
+#    servicename => "puppet",
 #  }
 # === Authors
 #

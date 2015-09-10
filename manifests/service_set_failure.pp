@@ -9,11 +9,11 @@
 # === Examples
 #
 #  windows_utensils::service_set_failure{'puppet':
-#    servicename = "puppet",
-#    failure_first_action = "restart",
-#    failure_second_action = "restart",
-#    failure_last_action = "reboot",
-#    failure_delay = "10000",
+#    servicename           => "puppet",
+#    failure_first_action  => "restart",
+#    failure_second_action => "restart",
+#    failure_last_action   => "reboot",
+#    failure_delay         => "10000",
 #  }
 # === Authors
 #

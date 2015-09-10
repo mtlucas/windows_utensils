@@ -9,9 +9,9 @@
 # === Examples
 #
 #  windows_utensils::service_create{'puppet':
-#    servicename = "puppet",
-#    service_exe_path = "C:\Program Files\Service\Service.exe",
-#    service_startup = "auto",
+#    servicename      => "puppet",
+#    service_exe_path => "C:\Program Files\Service\Service.exe",
+#    service_startup  => "auto",
 #  }
 # === Authors
 #
