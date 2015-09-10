@@ -11,6 +11,7 @@
 #  windows_utensils::policy_set_privilege{'puppet':
 #    identity    => "DOMAIN\User",
 #    privilege   => "SeServiceLogonRight",
+#    description => "Unique description"
 #  }
 # === Authors
 #
