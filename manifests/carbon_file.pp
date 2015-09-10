@@ -25,7 +25,7 @@ class windows_utensils::carbon_file {
   $utensilsdll   = "C:\\windows\\carbon.dll"
   
   file{"${utensilsdll}":
-    source => "puppet:///modules/windows_utensils/carbon.dll",
+    source => "puppet:///modules/windows_utensils/Carbon.dll",
     source_permissions => ignore,
   }
 }

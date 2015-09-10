@@ -2,7 +2,7 @@
   "README.md": "38b2c981072a0df162cddda52bce4b17",
   "Rakefile": "20b80e526e351a74df2001f504e756d2",
   "files/carbon.dll": "39caf69d5ffde7598acd6b8644080fe9",
-  "manifests/carbon_file.pp": "c4face0868611e8fd2979383cdabb0e7",
+  "manifests/carbon_file.pp": "c48752829b37ffdfdb22b501450cf489",
   "manifests/localgroup_add_user.pp": "5fcfa967ebb6a7d2224df0f45e677518",
   "manifests/policy_set_privilege.pp": "dbc5902ef44cd4eb42c485d4b8cbca7f",
   "manifests/service_create.pp": "4e7827b5e44ae60ce5fb1bbb7e1d3117",
