@@ -37,7 +37,7 @@ define windows_utensils::system_uac (
     type   => 'dword',
     data   => $uac_data,
   }
-  reboot { 'UAC':
-    subscribe => Registry::Value['UAC'],
+  reboot { 'Reboot_after_UAC_change':
+    subscribe => Registry::Value['Registry - UAC'],
   }
 }

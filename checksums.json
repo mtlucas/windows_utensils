@@ -16,7 +16,7 @@
   "manifests/service_delayedstart.pp": "47f56ab7beb9b5fe14079eda8709c773",
   "manifests/service_description.pp": "87c1c753a639c4050480eb95bebe49c1",
   "manifests/system_rdp.pp": "07cb53c3f6bcc0bca77017b29fafdb65",
-  "manifests/system_uac.pp": "c6fa77de0ca354475ce3555ac1538867",
+  "manifests/system_uac.pp": "68a06ebf8a6528dedae71790e7866e00",
   "manifests/init.pp": "704f4def92d772b6432b18f0f6b27d3b",
   "metadata.json": "0b394f35cb0fb927eea2bcc6013a38bd",
   "spec/classes/init_spec.rb": "c5b4d1b17cbd79cc0e0b2df849552034",
