@@ -21,29 +21,30 @@
 #
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
-define windows_utensils::service_credentials(
+define windows_utensils::service_credentials (
   $username    = '',
   $password    = '',
   $servicename = '',
   $delayed     = false,
 )
 {
+  require windows_utensils::checkver
   require windows_utensils::carbon_file
 
   $utensilsdll = $windows_utensils::carbon_file::utensilsdll
   
-  if(empty($username)){
-    fail('Username is mandatory')
+  if(empty($username)) {
+    fail('--> username metaparameter is mandatory')
   }
-  if(empty($password)){
-    fail('Password is mandatory')
+  if(empty($password)) {
+    fail('--> password metaparameter is mandatory')
   }
-  if(empty($servicename)){
-    fail('servicename is mandatory')
+  if(empty($servicename)) {
+    fail('--> servicename metaparameter is mandatory')
   }
   validate_bool($delayed)
 
-  exec{"Change credentials - $servicename":
+  exec {"Change credentials - $servicename":
     command  => "\$username = '${username}';\$password = '${password}';\$privilege = \"SeServiceLogonRight\";[Reflection.Assembly]::UnSafeLoadFrom(\"${utensilsdll}\");[Carbon.LSA]::GrantPrivileges(\$username, \$privilege);\$serverName = \$env:COMPUTERNAME;\$service = '${servicename}';\$svcD=gwmi win32_service -computername \$serverName -filter \"name='\$service'\";\$StopStatus = \$svcD.StopService();\$ChangeStatus = \$svcD.change(\$null,\$null,\$null,\$null,\$null,\$null,\$username,\$password,\$null,\$null,\$null);",
     provider => "powershell",
     timeout  => 300,

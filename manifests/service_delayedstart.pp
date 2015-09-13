@@ -20,12 +20,15 @@
 #
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
-define windows_utensils::service_delayedstart(
+define windows_utensils::service_delayedstart (
   $delayed     = true,
   $servicename = '',
-){
-  if(empty($servicename)){
-    fail('servicename is mandatory')
+)
+{
+  require windows_utensils::checkver
+
+  if(empty($servicename)) {
+    fail('--> servicename metaparameter is mandatory')
   }
 
   if($delayed){
@@ -34,7 +37,7 @@ define windows_utensils::service_delayedstart(
     $value = '0'
   }
   
-  exec{"Set Delayed_start - $servicename":
+  exec {"Set Delayed_start - $servicename":
     command  => "New-ItemProperty -Path \"HKLM:\\System\\CurrentControlSet\\Services\\${servicename}\" -Name 'DelayedAutoStart' -Value '${value}' -PropertyType 'DWORD' -Force;",
     provider => "powershell",
     timeout  => 300,

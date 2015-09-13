@@ -1,6 +1,6 @@
 # == Class: windows_utensils
 #
-# Full description of class windows_utensils here.
+# This module allow you to manage system, network, service, and security features of Windows Servers >= 2008 easily
 #
 # === Parameters
 #
@@ -23,8 +23,8 @@
 #
 # === Examples
 #
-#  class { ntp:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#  class { windows_utensils::carbon_file
+#    ensure => present,
 #  }
 #
 # === Authors

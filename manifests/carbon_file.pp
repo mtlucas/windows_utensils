@@ -1,6 +1,6 @@
 # == Class: windows_utensils
 #
-# This module allow you to manage Add a Domain user to localgroup
+# This module adds teh Carbon.dll file needed for some security operations
 #
 # === Parameters
 #
@@ -8,10 +8,9 @@
 #
 # === Examples
 #
-#  windows_utensils::addusertogroup{'puppet':
-#    username = "DOMAIN\User",
-#    group    = "LocalGroup",
-#  }
+#  require windows_utensils::carbon_file
+#  $utensilsdll = $windows_utensils::carbon_file::utensilsdll
+#
 # === Authors
 #
 # Michael Lucas (mike@lucasnet.org)
@@ -22,10 +21,10 @@
 #
 class windows_utensils::carbon_file {
 
-  $utensilsdll   = "C:\\windows\\carbon.dll"
+  $utensilsdll = "C:\\windows\\carbon.dll"
   
-  file{"${utensilsdll}":
-    source => "puppet:///modules/windows_utensils/Carbon.dll",
+  file {"${utensilsdll}":
+    source             => "puppet:///modules/windows_utensils/Carbon.dll",
     source_permissions => ignore,
   }
 }

@@ -23,7 +23,7 @@
 #
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
-define windows_utensils::service_set_failure(
+define windows_utensils::service_set_failure (
   $servicename   = '',
   $failure_first_action = 'restart',
   $failure_second_action = 'restart',
@@ -31,24 +31,26 @@ define windows_utensils::service_set_failure(
   $failure_delay  = '60000',
 )
 {
-  if(empty($servicename)){
-    fail('Service name is mandatory')
+  require windows_utensils::checkver
+
+  if(empty($servicename)) {
+    fail('--> servicename metaparameter is mandatory')
   }
-  if(empty($failure_first_action)){
-    fail('Failure first action is optional, use <run|restart|reboot> values')
+  if(empty($failure_first_action)) {
+    fail('--> Failure first action is optional, use <run|restart|reboot> values')
   }
-  if(empty($failure_second_action)){
-    fail('Failure second action is optional, use <run|restart|reboot> values')
+  if(empty($failure_second_action)) {
+    fail('--> Failure second action is optional, use <run|restart|reboot> values')
   }
-  if(empty($failure_last_action)){
-    fail('Failure last action is optional, use <run|restart|reboot> values')
+  if(empty($failure_last_action)) {
+    fail('--> Failure last action is optional, use <run|restart|reboot> values')
   }
-  if(empty($failure_delay)){
-    fail('Failure delay time is optional, in milliseconds')
+  if(empty($failure_delay)) {
+    fail('--> Failure delay time is optional, in milliseconds')
   }
   $service_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe get-service -name $servicename"
 
-  exec{"Change Failure settings - $servicename":
+  exec {"Change Failure settings - $servicename":
     command     => "C:\\Windows\\System32\\sc.exe failure $servicename reset= 0 actions= $failure_first_action/$failure_delay/$failure_second_action/$failure_delay/$failure_last_action/$failure_delay",
     timeout     => 300,
     onlyif      => $service_exists,

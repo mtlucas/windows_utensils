@@ -21,27 +21,28 @@
 #
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
-define windows_utensils::policy_set_privilege(
+define windows_utensils::policy_set_privilege (
   $identity     = '',
   $privilege    = '',
   $description  = '',
-  )
+)
 {
+  require windows_utensils::checkver
   require windows_utensils::carbon_file
 
   $utensilsdll = $windows_utensils::carbon_file::utensilsdll
 
-  if(empty($identity)){
-    fail('Identity is mandatory')
+  if(empty($identity)) {
+    fail('--> identity metaparameter is mandatory')
   }
-  if(empty($privilege)){
-    fail('Privilege is mandatory')
+  if(empty($privilege)) {
+    fail('--> privilege metaparameter is mandatory')
   }
-  if(empty($description)){
-    fail('Description is mandatory in order to make unique')
+  if(empty($description)) {
+    fail('--> description metaparameter is mandatory in order to make unique')
   }
 
-  exec{"Set Privileges - $description":
+  exec {"Set Privileges - $description":
     command  => "\$identity = '${identity}';\$privilege = '${privilege}';[Reflection.Assembly]::UnSafeLoadFrom(\"${utensilsdll}\");[Carbon.LSA]::GrantPrivileges(\$identity, \$privilege);",
     provider => "powershell",
     timeout  => 300,
