@@ -25,9 +25,13 @@ define windows_utensils::service_create (
   $servicename   = '',
   $service_exe_path = '',
   $service_startup = 'auto',
+  $require,
+  $noop,
 )
 {
   require windows_utensils::checkver
+
+  if $noop == undef { $noop = false }
 
   if(empty($servicename)) {
     fail('--> servicename metaparameter is mandatory')
@@ -44,5 +48,6 @@ define windows_utensils::service_create (
     command     => "C:\\Windows\\System32\\sc.exe create $servicename start= $service_startup binPath= \"$service_exe_path\"",
     timeout     => 300,
     unless      => $service_exists,
+    noop        => $noop,
   }
 }

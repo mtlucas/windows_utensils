@@ -23,9 +23,13 @@
 define windows_utensils::service_delayedstart (
   $delayed     = true,
   $servicename = '',
+  $require,
+  $noop,
 )
 {
   require windows_utensils::checkver
+
+  if $noop == undef { $noop = false }
 
   if(empty($servicename)) {
     fail('--> servicename metaparameter is mandatory')
@@ -42,5 +46,6 @@ define windows_utensils::service_delayedstart (
     provider => "powershell",
     timeout  => 300,
     onlyif   => "if((test-path \"HKLM:\\System\\CurrentControlSet\\Services\\${servicename}\\\") -eq \$true){if((Get-ItemProperty -Path \"HKLM:\\System\\CurrentControlSet\\Services\\${servicename}\" -ErrorAction SilentlyContinue).DelayedAutoStart -eq '${value}'){exit 1;}else{exit 0;}}else{exit 1;}",
+    noop     => $noop,
   }
 }

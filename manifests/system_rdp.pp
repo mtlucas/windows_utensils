@@ -21,9 +21,13 @@
 #
 define windows_utensils::system_rdp (
   $ensure,
+  $require,
+  $noop,
 )
 {
   require windows_utensils::checkver
+
+  if $noop == undef { $noop = false }
 
   case $ensure {
     'present','enabled': {
@@ -34,6 +38,7 @@ define windows_utensils::system_rdp (
         value => 'IgnoreRegUserConfigErrors',
         type  => 'dword',
         data  => 1,
+        noop  => $noop,
       }
     }
     'absent','disabled': {
@@ -47,5 +52,6 @@ define windows_utensils::system_rdp (
     value => 'fDenyTSConnections',
     type  => 'dword',
     data  => $rdp_disabled,
+    noop  => $noop,
   }
 }

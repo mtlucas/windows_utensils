@@ -23,9 +23,13 @@
 define windows_utensils::service_description (
   $servicename   = '',
   $service_desc = '',
+  $require,
+  $noop,
 )
 {
   require windows_utensils::checkver
+
+  if $noop == undef { $noop = false }
 
   if(empty($servicename)) {
     fail('--> servicename metaparameter is mandatory')
@@ -39,5 +43,6 @@ define windows_utensils::service_description (
     command     => "C:\\Windows\\System32\\sc.exe description $servicename \"$service_desc\"",
     timeout     => 300,
     onlyif      => $service_exists,
+    noop        => $noop,
   }
 }

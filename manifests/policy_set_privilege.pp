@@ -25,12 +25,16 @@ define windows_utensils::policy_set_privilege (
   $identity     = '',
   $privilege    = '',
   $description  = '',
+  $require,
+  $noop,
 )
 {
   require windows_utensils::checkver
   require windows_utensils::carbon_file
 
   $utensilsdll = $windows_utensils::carbon_file::utensilsdll
+
+  if $noop == undef { $noop = false }
 
   if(empty($identity)) {
     fail('--> identity metaparameter is mandatory')
@@ -46,6 +50,7 @@ define windows_utensils::policy_set_privilege (
     command  => "\$identity = '${identity}';\$privilege = '${privilege}';[Reflection.Assembly]::UnSafeLoadFrom(\"${utensilsdll}\");[Carbon.LSA]::GrantPrivileges(\$identity, \$privilege);",
     provider => "powershell",
     timeout  => 300,
+    noop     => $noop,
   }
   File["${utensilsdll}"] -> Exec["Set Privileges - $description"]
 }

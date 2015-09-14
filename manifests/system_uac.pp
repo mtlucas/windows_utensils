@@ -21,9 +21,13 @@
 #
 define windows_utensils::system_uac (
   $ensure,
+  $require,
+  $noop,
 )
 {
   require windows_utensils::checkver
+
+  if $noop == undef { $noop = false }
 
   case $ensure {
     'present','enabled': { $uac_data = 1 }
@@ -32,12 +36,14 @@ define windows_utensils::system_uac (
   }
 
   registry::value {'Registry - UAC':
-    key    => 'HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System',
-    value  => 'EnableLUA',
-    type   => 'dword',
-    data   => $uac_data,
+    key       => 'HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System',
+    value     => 'EnableLUA',
+    type      => 'dword',
+    data      => $uac_data,
+    noop      => $noop,
   }
   reboot { 'Reboot_after_UAC_change':
     subscribe => Registry::Value['Registry - UAC'],
+    noop      => $noop,
   }
 }

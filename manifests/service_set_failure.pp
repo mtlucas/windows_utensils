@@ -29,9 +29,13 @@ define windows_utensils::service_set_failure (
   $failure_second_action = 'restart',
   $failure_last_action = 'restart',
   $failure_delay  = '60000',
+  $require,
+  $noop,
 )
 {
   require windows_utensils::checkver
+
+  if $noop == undef { $noop = false }
 
   if(empty($servicename)) {
     fail('--> servicename metaparameter is mandatory')
@@ -54,5 +58,6 @@ define windows_utensils::service_set_failure (
     command     => "C:\\Windows\\System32\\sc.exe failure $servicename reset= 0 actions= $failure_first_action/$failure_delay/$failure_second_action/$failure_delay/$failure_last_action/$failure_delay",
     timeout     => 300,
     onlyif      => $service_exists,
+    noop        => $noop,
   }
 }

@@ -23,9 +23,13 @@
 define windows_utensils::network_ipv6 (
   $ensure,
   $state = undef,
+  $require,
+  $noop,
 )
 {
   require windows_utensils::checkver
+
+  if $noop == undef { $noop = false }
 
   case $ensure {
     'present','enabled': {
@@ -46,5 +50,6 @@ define windows_utensils::network_ipv6 (
     value  => 'DisabledComponents',
     type   => 'dword',
     data   => $ipv6_data,
+    noop   => $noop,
   }
 }

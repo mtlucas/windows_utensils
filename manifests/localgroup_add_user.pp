@@ -25,9 +25,13 @@ define windows_utensils::localgroup_add_user (
   $username    = '',
   $group       = '',
   $description = '',
+  $require,
+  $noop,
 )
 {
   require windows_utensils::checkver
+
+  if $noop == undef { $noop = false }
 
   if(empty($username)) {
     fail('--> username metaparameter is mandatory')
@@ -43,5 +47,6 @@ define windows_utensils::localgroup_add_user (
     command  => "C:\\Windows\\System32\\net.exe localgroup $group $username /add",
     timeout  => 300,
 	  unless   => "C:\\Windows\\system32\\cmd.exe /C net.exe localgroup $group | find /I \"$username\"",
+    noop     => $noop,
   }
 }

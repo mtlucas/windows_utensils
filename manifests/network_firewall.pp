@@ -21,9 +21,13 @@
 #
 define windows_utensils::network_firewall (
   $ensure,
+  $require,
+  $noop,
 )
 {
   require windows_utensils::checkver
+
+  if $noop == undef { $noop = false }
 
   case $ensure {
     'present','enabled': { $firewall_setting = 1 }
@@ -36,18 +40,21 @@ define windows_utensils::network_firewall (
     value => 'EnableFirewall',
     type  => 'dword',
     data  => $firewall_setting,
+    noop  => $noop,
   }
   registry::value { 'Registry - Windows Firewall - PublicProfile':
     key   => 'HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile',
     value => 'EnableFirewall',
     type  => 'dword',
     data  => $firewall_setting,
+    noop  => $noop,
   }
   registry::value { 'Registry - Windows Firewall - StandardProfile':
     key   => 'HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile',
     value => 'EnableFirewall',
     type  => 'dword',
     data  => $firewall_setting,
+    noop  => $noop,
   }
 }
 
