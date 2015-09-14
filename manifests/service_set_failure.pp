@@ -29,8 +29,6 @@ define windows_utensils::service_set_failure (
   $failure_second_action = 'restart',
   $failure_last_action = 'restart',
   $failure_delay  = '60000',
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

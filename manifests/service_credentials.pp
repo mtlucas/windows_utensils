@@ -26,8 +26,6 @@ define windows_utensils::service_credentials (
   $password    = '',
   $servicename = '',
   $delayed     = false,
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

@@ -21,8 +21,6 @@
 #
 define windows_utensils::system_uac (
   $ensure,
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

@@ -25,8 +25,6 @@ define windows_utensils::policy_set_privilege (
   $identity     = '',
   $privilege    = '',
   $description  = '',
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

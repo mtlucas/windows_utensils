@@ -23,8 +23,6 @@
 define windows_utensils::network_ipv6 (
   $ensure,
   $state = undef,
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

@@ -25,8 +25,6 @@ define windows_utensils::service_create (
   $servicename   = '',
   $service_exe_path = '',
   $service_startup = 'auto',
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

@@ -23,8 +23,6 @@
 define windows_utensils::service_delayedstart (
   $delayed     = true,
   $servicename = '',
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

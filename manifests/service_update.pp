@@ -25,8 +25,6 @@ define windows_utensils::service_update (
   $servicename   = '',
   $service_exe_path = '',
   $service_startup = 'auto',
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

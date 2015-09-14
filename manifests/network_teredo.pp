@@ -22,8 +22,6 @@
 #
 define windows_utensils::network_teredo (
   $ensure,
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

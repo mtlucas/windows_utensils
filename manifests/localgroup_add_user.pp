@@ -25,8 +25,6 @@ define windows_utensils::localgroup_add_user (
   $username    = '',
   $group       = '',
   $description = '',
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

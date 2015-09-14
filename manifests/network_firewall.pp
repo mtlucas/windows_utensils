@@ -21,8 +21,6 @@
 #
 define windows_utensils::network_firewall (
   $ensure,
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

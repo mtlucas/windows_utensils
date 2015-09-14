@@ -23,8 +23,6 @@
 define windows_utensils::service_description (
   $servicename   = '',
   $service_desc = '',
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver

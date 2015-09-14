@@ -21,8 +21,6 @@
 #
 define windows_utensils::system_rdp (
   $ensure,
-  $require,
-  $noop,
 )
 {
   require windows_utensils::checkver
