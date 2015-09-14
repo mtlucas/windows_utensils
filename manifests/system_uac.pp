@@ -39,6 +39,5 @@ define windows_utensils::system_uac (
   }
   reboot { 'Reboot_after_UAC_change':
     subscribe => Registry::Value['Registry - UAC'],
-    provider  => 'windows',
   }
 }
