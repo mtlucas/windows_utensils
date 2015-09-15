@@ -29,29 +29,31 @@ define windows_utensils::network_teredo (
   if $noop == undef { $noop = false }
 
   $check_teredo_state = "C:\\Windows\\System32\\cmd.exe /C C:\\Windows\\System32\\netsh.exe interface teredo show state | find /I \"disabled\""
+  $check_6to4_state   = "C:\\Windows\\System32\\cmd.exe /C C:\\Windows\\System32\\netsh.exe interface ipv6 6to4 show state | find /I \"disabled\""
+  $check_isatap_state = "C:\\Windows\\System32\\cmd.exe /C C:\\Windows\\System32\\netsh.exe interface ipv6 isatap show state | find /I \"disabled\""
 
   case $ensure {
     'present','enabled': { info('IPv6 Teredo will remain enabled') }
     'absent','disabled': {
 
+      exec { 'Disable IPv6 Teredo':
+        command     => "C:\\Windows\\System32\\netsh.exe interface teredo set state disabled",
+        timeout     => 300,
+        unless      => $check_teredo_state,
+        noop        => $noop,
+      }
+      ->
       exec { 'Disable IPv6 6to4':
         command     => "C:\\Windows\\System32\\netsh.exe interface ipv6 6to4 set state state=disabled undoonstop=disabled",
         timeout     => 300,
-        unless      => $check_teredo_state,
+        unless      => $check_6to4_state,
         noop        => $noop,
       }
       ->
       exec { 'Disable IPv6 isatap':
         command     => "C:\\Windows\\System32\\netsh.exe interface ipv6 isatap set state state=disabled",
         timeout     => 300,
-        unless      => $check_teredo_state,
-        noop        => $noop,
-      }
-      ->
-      exec { 'Disable IPv6 Teredo':
-        command     => "C:\\Windows\\System32\\netsh.exe interface teredo set state disabled",
-        timeout     => 300,
-        unless      => $check_teredo_state,
+        unless      => $check_isatap_state,
         noop        => $noop,
       }
       ->
