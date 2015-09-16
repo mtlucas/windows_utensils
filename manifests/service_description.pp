@@ -36,11 +36,12 @@ define windows_utensils::service_description (
     fail('--> description metaparameter is mandatory')
   }
   $service_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe get-service -name $servicename"
+  $service_desc_exists = "C:\\Windows\\System32\\cmd.exe /C C:\\Windows\\System32\\sc.exe Qdescription $servicename | find /I \"$service_desc\""
 
   exec {"Set Service description - $servicename":
     command     => "C:\\Windows\\System32\\sc.exe description $servicename \"$service_desc\"",
     timeout     => 300,
-    onlyif      => $service_exists,
+    unless      => $service_desc_exists,
     noop        => $noop,
   }
 }

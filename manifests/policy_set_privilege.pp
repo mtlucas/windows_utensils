@@ -21,6 +21,9 @@
 #
 # Copyright 2015 Michael Lucas, unless otherwise noted.
 #
+# NOTES:
+#  - This module cannot be made idempotent easily and will run on every Puppet run.
+#
 define windows_utensils::policy_set_privilege (
   $identity     = '',
   $privilege    = '',
