@@ -42,25 +42,22 @@ define windows_utensils::network_teredo (
         unless      => $check_teredo_state,
         noop        => $noop,
       }
-      ->
       exec { 'Disable IPv6 6to4':
         command     => "C:\\Windows\\System32\\netsh.exe interface ipv6 6to4 set state state=disabled undoonstop=disabled",
         timeout     => 300,
         unless      => $check_6to4_state,
         noop        => $noop,
       }
-      ->
       exec { 'Disable IPv6 isatap':
         command     => "C:\\Windows\\System32\\netsh.exe interface ipv6 isatap set state state=disabled",
         timeout     => 300,
         unless      => $check_isatap_state,
         noop        => $noop,
       }
-      ->
-      service { 'iphlpsvc':
-        ensure      => stopped,
-        noop        => $noop,
-      }
+      #service { 'iphlpsvc':
+      #  ensure      => stopped,
+      #  noop        => $noop,
+      #}
     }
     default: { fail('--> ensure metaparameter is mandatory') }
   }

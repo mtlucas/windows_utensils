@@ -7,7 +7,7 @@
   "manifests/localgroup_add_user.pp": "76038cf9a4a26bbd4e8b797dd70f6763",
   "manifests/network_firewall.pp": "4a1fc8353a1e5e45c9b4ab8b899ba87b",
   "manifests/network_ipv6.pp": "91a4fb43222a5dc394776dc6589da2f7",
-  "manifests/network_teredo.pp": "096df49dc2a321655a975d90b17093c2",
+  "manifests/network_teredo.pp": "cd42fbaef83d3e7ee632ca27a5951873",
   "manifests/policy_set_privilege.pp": "6b2c45bab50fc5263deead6a376e3c86",
   "manifests/service_create.pp": "5ea5bcd6f9c0c5496fae7259df33178c",
   "manifests/service_update.pp": "7d16157726bc41a7814f0416e12e0ee7",
