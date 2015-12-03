@@ -46,7 +46,7 @@ define windows_utensils::service_update (
   exec {"Update Service - $servicename":
     command     => "C:\\Windows\\System32\\sc.exe config $servicename start= $service_startup binPath= \"$service_exe_path\"",
     timeout     => 300,
-    unless      => $service_update_exists,
+    onlyif      => $service_update_exists,
     noop        => $noop,
   }
 }
