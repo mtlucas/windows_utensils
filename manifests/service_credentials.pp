@@ -50,7 +50,7 @@ define windows_utensils::service_credentials (
     command  => "\$username = '${username}';\$password = '${password}';\$privilege = \"SeServiceLogonRight\";[Reflection.Assembly]::UnSafeLoadFrom(\"${utensilsdll}\");[Carbon.LSA]::GrantPrivileges(\$username, \$privilege);\$serverName = \$env:COMPUTERNAME;\$service = '${servicename}';\$svcD=gwmi win32_service -computername \$serverName -filter \"name='\$service'\";\$StopStatus = \$svcD.StopService();\$ChangeStatus = \$svcD.change(\$null,\$null,\$null,\$null,\$null,\$null,\$username,\$password,\$null,\$null,\$null);",
     provider => "powershell",
     timeout  => 300,
-    unless   => "\$svcD=gwmi win32_service -computername \$env:COMPUTERNAME -filter \"name='${servicename}'\";if(\$svcD.GetPropertyValue('startname') -like '${username}'){exit 0}else{exit 1}",
+    unless   => "\$svcD=gwmi win32_service -computername \$env:COMPUTERNAME -filter \"name='${servicename}'\";if(\$svcD.GetPropertyValue('startname') -match '${username}'){exit 0}else{exit 1}",
     noop     => $noop,
   }
   File["${utensilsdll}"] -> Exec["Change credentials - $servicename"]
