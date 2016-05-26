@@ -49,7 +49,7 @@ define windows_utensils::service_create (
     $service_display_name = $service_displayname
   }
   $service_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe get-service -name $servicename"
-  $service_exe_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe if(test-path $service_exe_path){Write-Host \"Service EXE exists!\";Exit 1;}Else{Write-Host \"Service EXE does NOT exist!\";Exit 0;}"
+  $service_exe_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe if(test-path $service_exe_path){Write-Host \"Service EXE exists!\";Exit 0;}Else{Write-Host \"Service EXE does NOT exist!\";Exit 1;}"
   
   exec {"Create Service - $servicename":
     command     => "C:\\Windows\\System32\\sc.exe create $servicename displayname= \"$service_display_name\" start= $service_startup binPath= \"$service_exe_path\"",

@@ -9,7 +9,7 @@
   "manifests/network_ipv6.pp": "91a4fb43222a5dc394776dc6589da2f7",
   "manifests/network_teredo.pp": "cd42fbaef83d3e7ee632ca27a5951873",
   "manifests/policy_set_privilege.pp": "6727ef248ed8ae10a0ecdf0965a178ae",
-  "manifests/service_create.pp": "a987daccad67f375131a652bfcbc4724",
+  "manifests/service_create.pp": "9715cb54624b356d93e627b9508b906b",
   "manifests/service_update.pp": "ff95e8fea95a2590d8e5e68f84a1fc2b",
   "manifests/service_set_failure.pp": "740fad5828d87019b3c65eaa6a38415f",
   "manifests/service_credentials.pp": "0b361329c63218d90bc1b84443816c2e",
