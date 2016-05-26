@@ -50,13 +50,14 @@ define windows_utensils::service_set_failure (
   if(empty($failure_delay)) {
     fail('--> Failure delay time is optional, in milliseconds')
   }
-  $service_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe get-service -name $servicename"
+  $service_not_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe if(\$ServiceTest = Get-Service $servicename -ErrorAction SilentlyContinue){Write-Host \"Service exists!\";Exit 1;}Else{Write-Host \"Service does NOT exist!\";Exit 0;}"
   $service_failure_exists = "C:\\Windows\\System32\\cmd.exe /C C:\\Windows\\System32\\sc.exe Qfailure $servicename | find /I \"$failure_delay\""
 
   exec {"Change Failure settings - $servicename":
     command     => "C:\\Windows\\System32\\sc.exe failure $servicename reset= 0 actions= $failure_first_action/$failure_delay/$failure_second_action/$failure_delay/$failure_last_action/$failure_delay",
+	logoutput   => true,
     timeout     => 300,
-    unless      => $service_failure_exists,
+    unless      => [$service_failure_exists, $service_not_exists],
     noop        => $noop,
   }
 }
