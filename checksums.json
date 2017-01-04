@@ -12,7 +12,7 @@
   "manifests/service_create.pp": "82d1335cc1ae271a800432d52bda67e5",
   "manifests/service_update.pp": "ff95e8fea95a2590d8e5e68f84a1fc2b",
   "manifests/service_set_failure.pp": "2332fc152bdd961fe10a1d596ae88699",
-  "manifests/service_credentials.pp": "323f6d9ed45aa9ff3afec93cbb7303c7",
+  "manifests/service_credentials.pp": "cc1eaa82a4c76f5a0a53d469e5c71909",
   "manifests/service_delayedstart.pp": "b51c5d13651ead0873d8fd788b8a8987",
   "manifests/service_description.pp": "347d40dab3e57ac305f57fa82e694e59",
   "manifests/system_rdp.pp": "fdcb366b6a94729d11e70a7009d1087c",

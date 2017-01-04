@@ -46,7 +46,7 @@ define windows_utensils::service_credentials (
   }
   validate_bool($delayed)
 
-  $regex_username = regsubst($username, '(\\)', '\\\\', 'G')
+  $regex_username = regsubst($username, "(\\)", "\\\\", 'G')
 
   exec {"Change credentials - $servicename":
     command  => "\$username = '${username}';\$password = '${password}';\$privilege = \"SeServiceLogonRight\";[Reflection.Assembly]::UnSafeLoadFrom(\"${utensilsdll}\");[Carbon.LSA]::GrantPrivileges(\$username, \$privilege);\$serverName = \$env:COMPUTERNAME;\$service = '${servicename}';\$svcD=gwmi win32_service -computername \$serverName -filter \"name='\$service'\";\$StopStatus = \$svcD.StopService();\$ChangeStatus = \$svcD.change(\$null,\$null,\$null,\$null,\$null,\$null,\$username,\$password,\$null,\$null,\$null);",
