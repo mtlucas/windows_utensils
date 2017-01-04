@@ -23,7 +23,7 @@ class windows_utensils::checkver {
   if $::kernel != 'windows' {
     fail('--> This module only works with Windows systems')
   }
-  if versioncmp($::operatingsystemrelease, 6.1) < 0 {
+  if versioncmp($::operatingsystemrelease, '6.1') < 0 {
     fail('--> Windows version is not supported...')
   }
   else {

@@ -4,15 +4,14 @@
 #
 # === Parameters
 #
-#  $service_displayname is OPTIONAL and will default to $servicename
+#  Can be found on read me
 #
 # === Examples
 #
 #  windows_utensils::service_create{'puppet':
-#    servicename      => 'pe-puppet',
+#    servicename      => "puppet",
 #    service_exe_path => "C:\\Program Files\\Service\\Service.exe",
 #    service_startup  => 'auto',
-#    service_displayname  => 'pe-puppet',
 #  }
 # === Authors
 #
@@ -26,7 +25,6 @@ define windows_utensils::service_create (
   $servicename   = '',
   $service_exe_path = '',
   $service_startup = 'auto',
-  $service_displayname = '',
 )
 {
   require windows_utensils::checkver
@@ -42,20 +40,12 @@ define windows_utensils::service_create (
   if(empty($service_startup)) {
     fail('--> service_startup metaparameter is optional, use <boot|system|auto|demand|disabled|delayed-auto> values')
   }
-  if(empty($service_displayname)) {
-    $service_display_name = $servicename
-  }
-  else {
-    $service_display_name = $service_displayname
-  }
   $service_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe get-service -name $servicename"
-  $service_exe_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe if(test-path $service_exe_path){Write-Host \"Service EXE exists!\";Exit 0;}Else{Write-Host \"Service EXE does NOT exist!\";Exit 1;}"
-  
+
   exec {"Create Service - $servicename":
-    command     => "C:\\Windows\\System32\\sc.exe create $servicename displayname= \"$service_display_name\" start= $service_startup binPath= \"$service_exe_path\"",
-	logoutput   => true,
+    command     => "C:\\Windows\\System32\\sc.exe create $servicename start= $service_startup binPath= \"$service_exe_path\"",
     timeout     => 300,
-    unless      => [$service_exists, $service_exe_exists],
+    unless      => $service_exists,
     noop        => $noop,
   }
 }

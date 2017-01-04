@@ -34,19 +34,16 @@ define windows_utensils::service_delayedstart (
   }
 
   if($delayed){
-    $value = '1' 
+    $value = '1'
   }else{
     $value = '0'
   }
 
-  $service_exists = "get-service -name $servicename"
-  
   exec {"Set Delayed_start - $servicename":
     command  => "New-ItemProperty -Path \"HKLM:\\System\\CurrentControlSet\\Services\\${servicename}\" -Name 'DelayedAutoStart' -Value '${value}' -PropertyType 'DWORD' -Force;",
     provider => "powershell",
-	logoutput => true,
     timeout  => 300,
-    onlyif   => ["if((test-path \"HKLM:\\System\\CurrentControlSet\\Services\\${servicename}\\\") -eq \$true){if((Get-ItemProperty -Path \"HKLM:\\System\\CurrentControlSet\\Services\\${servicename}\" -ErrorAction SilentlyContinue).DelayedAutoStart -eq '${value}'){exit 1;}else{exit 0;}}else{exit 1;}", $service_exists],
+    onlyif   => "if((test-path \"HKLM:\\System\\CurrentControlSet\\Services\\${servicename}\\\") -eq \$true){if((Get-ItemProperty -Path \"HKLM:\\System\\CurrentControlSet\\Services\\${servicename}\" -ErrorAction SilentlyContinue).DelayedAutoStart -eq '${value}'){exit 1;}else{exit 0;}}else{exit 1;}",
     noop     => $noop,
   }
 }
