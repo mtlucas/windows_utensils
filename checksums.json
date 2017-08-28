@@ -1,5 +1,5 @@
 {
-  "README.md": "92830b497869ea051e8da737331ffaaa",
+  "README.md": "4fb2f99ade7425f70222256d5b78917d",
   "Rakefile": "20b80e526e351a74df2001f504e756d2",
   "files/carbon.dll": "39caf69d5ffde7598acd6b8644080fe9",
   "manifests/carbon_file.pp": "ecdd21e2c74e7574df2d1782f0c3cf09",
@@ -10,7 +10,8 @@
   "manifests/network_teredo.pp": "cd42fbaef83d3e7ee632ca27a5951873",
   "manifests/policy_set_privilege.pp": "6727ef248ed8ae10a0ecdf0965a178ae",
   "manifests/service_create.pp": "82d1335cc1ae271a800432d52bda67e5",
-  "manifests/service_update.pp": "508b3ac934ce7a6e82fd506d0abe4e62",
+  "manifests/service_update.pp": "411b851a26f8e23d159ffd52bd82fafc",
+  "manifests/service_startup.pp": "ec672e2ca27846da9df0271dea2fdc3e",
   "manifests/service_set_failure.pp": "2332fc152bdd961fe10a1d596ae88699",
   "manifests/service_credentials.pp": "5b1275dd1901090a68ee540ed7f8b255",
   "manifests/service_delayedstart.pp": "b51c5d13651ead0873d8fd788b8a8987",

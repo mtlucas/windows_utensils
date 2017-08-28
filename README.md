@@ -31,7 +31,8 @@ Manage complex windows settings using command line tools and powershell.  Includ
  - windows_utensils::network_teredo       -> Enables/disables Teredo and IPv6 tunneling
  - windows_utensils::policy_set_privilege -> Add user to 'Logon as a Service' User right
  - windows_utensils::service_create       -> Create Windows service
- - windows_utensils::service_update       -> Update Windows service startup type and executable path
+ - windows_utensils::service_update       -> Update Windows service executable path
+ - windows_utensils::service_startup      -> Update Windows service startup type
  - windows_utensils::service_set_failure  -> Set Windows service failure options
  - windows_utensils::service_credentials  -> Change Windows service credentials also adding SeServiceLogonRight to local policy rights
  - windows_utensils::service_delayedstart -> Change Windows service startup type to 'Automatic (Delayed)'
@@ -42,6 +43,9 @@ Manage complex windows settings using command line tools and powershell.  Includ
 Notes:  Delayed resource can't be applied without a server restart.
 
 ##Last Fix/Update
+v 0.0.6 :
+ - Add service_startup resource to allow for changing only the startup of a windows service - this requires the service to exist already
+
 v 0.0.5 :
  - Add system_rdp, system_uac, network_firewall, network_ipv6, network_teredo resources and now check to make sure correct OS and version
 
@@ -134,13 +138,26 @@ Parameters:
 	windows_utensils::service_update{'puppet':
 	  servicename      => "puppet",
 	  service_exe_path => "C:\Program Files\Service\Service.exe",
-	  service_startup  => "auto",
 	}
 ```
 Parameters:
 ```
 	$servicename       # Short name of Windows service
 	$service_exe_path  # Fully qualified path to service executable
+	$service_startup   # DEPRECATED - not necessary
+```
+
+
+**Resource: windows_utensils::service_startup**
+```
+	windows_utensils::service_startup{'puppet':
+	  servicename      => "puppet",
+	  service_startup  => "auto",
+	}
+```
+Parameters:
+```
+	$servicename       # Short name of Windows service
 	$service_startup   # OPTIONAL Service startup value: <boot|system|auto|demand|disabled|delayed-auto>
 ```
 

@@ -11,7 +11,6 @@
 #  windows_utensils::service_update{'puppet':
 #    servicename      => "puppet",
 #    service_exe_path => "C:\\Program Files\\Service\\Service.exe",
-#    service_startup  => "auto",
 #  }
 # === Authors
 #
@@ -23,8 +22,8 @@
 #
 define windows_utensils::service_update (
   $servicename   = '',
-  $service_exe_path = '',
   $service_startup = 'auto',
+  $service_exe_path = '',
 )
 {
   require windows_utensils::checkver
@@ -37,17 +36,13 @@ define windows_utensils::service_update (
   if(empty($service_exe_path)) {
     fail('--> Fully qualified executable path is mandatory')
   }
-  if(empty($service_startup)) {
-    fail('--> service_startup metaparameter is optional, use <boot|system|auto|demand|disabled|delayed-auto> values')
-  }
   $service_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe get-service -name ${servicename}"
   $service_update_exists = "C:\\Windows\\System32\\cmd.exe /C C:\\Windows\\System32\\sc.exe qc ${servicename} | find /I \"${service_exe_path}\""
-  $service_update_startup = "C:\\Windows\\System32\\cmd.exe /C C:\\Windows\\System32\\sc.exe qc ${servicename} | find /I \"${service_startup}\""
 
-  exec {"Update Service - $servicename":
-    command     => "C:\\Windows\\System32\\sc.exe config ${servicename} start= ${service_startup} binPath= \"${service_exe_path}\"",
+  exec {"Update Service Exe - $servicename":
+    command     => "C:\\Windows\\System32\\sc.exe config ${servicename} binPath= \"${service_exe_path}\"",
     timeout     => 300,
-    unless      => [$service_update_exists,$service_update_startup],
+    unless      => $service_update_exists,
     noop        => $noop,
   }
 }
