@@ -42,11 +42,12 @@ define windows_utensils::service_update (
   }
   $service_exists = "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell.exe get-service -name ${servicename}"
   $service_update_exists = "C:\\Windows\\System32\\cmd.exe /C C:\\Windows\\System32\\sc.exe qc ${servicename} | find /I \"${service_exe_path}\""
+  $service_update_startup = "C:\\Windows\\System32\\cmd.exe /C C:\\Windows\\System32\\sc.exe qc ${servicename} | find /I \"${service_startup}\""
 
   exec {"Update Service - $servicename":
     command     => "C:\\Windows\\System32\\sc.exe config ${servicename} start= ${service_startup} binPath= \"${service_exe_path}\"",
     timeout     => 300,
-    unless      => $service_update_exists,
+    unless      => [$service_update_exists,$service_update_startup],
     noop        => $noop,
   }
 }
