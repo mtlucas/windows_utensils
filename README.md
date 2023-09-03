@@ -2,6 +2,7 @@
 
 #### Table of Contents
 
+0. [DEPRECATED](#deprecated)
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
 3. [Setup - The basics of getting started with windows_utensils](#setup)
@@ -9,6 +10,10 @@
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Support - How contribute](#Support)
+
+## DEPRECATED
+
+This module was intended to be used with puppet version 3.8.x.  It is now deprecated - do not use.
 
 ## Overview
 
